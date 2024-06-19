@@ -1,11 +1,21 @@
 import { Request, Response } from "express";
+import { ApplicationServices } from "../services/application.services";
+import { number } from "zod";
 
 export class ApplicationControllers{
-    create(req: Request, res: Response){
+    async create(req: Request, res: Response){
+        const applicationServices = new ApplicationServices();
 
+        const response = await applicationServices.create(Number(req.params.id), req.body);
+
+        return res.status(201).json(response);
     }
 
-    findMany(req: Request, res: Response){
+    async findMany(req: Request, res: Response){
+        const applicationServices = new ApplicationServices();
 
+        const response = await applicationServices.findMany(+req.params.id);
+
+        return res.status(200).json(response);
     }
 }

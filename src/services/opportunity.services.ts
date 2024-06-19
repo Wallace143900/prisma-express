@@ -1,5 +1,5 @@
 import { prisma } from "../database/prisma";
-import { TOpportunity, TOpportunityCreate } from "../schemas/opportunity.schemas";
+import { TOpportunity, TOpportunityCreate, TOpportunityUpdate } from "../schemas/opportunity.schemas";
 
 export class OpportunityServices{
     async create(body: TOpportunityCreate):Promise <TOpportunity> {
@@ -14,17 +14,18 @@ export class OpportunityServices{
         return data;
     }
 
-    async findOne(id: number): Promise<TOpportunity>{
-        const data = await prisma.opportunity.findFirst({ where: { id } })
+    findOne(opportunity: TOpportunity): TOpportunity{
 
-        return data as TOpportunity;
+        return opportunity;
     }
 
-    async update(){
+    async update(id: number, body: TOpportunityUpdate): Promise<TOpportunity>{
+        const data = await prisma.opportunity.update({ where: { id }, data: body })
 
+        return data;
     }
 
-    async delete(){
-
+    async delete(id: number): Promise<void>{
+        const data = await prisma.opportunity.delete({ where: { id }})
     }
 }
