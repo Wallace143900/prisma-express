@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { ApplicationServices } from "../services/application.services";
-import { number } from "zod";
 
 export class ApplicationControllers{
     async create(req: Request, res: Response){
